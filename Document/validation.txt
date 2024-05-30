@@ -1,0 +1,80 @@
+Java Regex Cheat Sheet
+Here's a Java regex cheat sheet that provides a quick reference for commonly used syntax and constructs in Java regular expressions:
+
+\d - Matches any digit (0-9).
+
+\D - Matches any non-digit character.
+
+\w - Matches any word character (a-z, A-Z, 0-9, and underscore).
+
+\W - Matches any non-word character.
+
+\s - Matches any whitespace character (space, tab, newline, etc.).
+
+\S - Matches any non-whitespace character.
+
+. - Matches any character except newline.
+
+* - Matches zero or more occurrences of the preceding element.
+
++ - Matches one or more occurrences of the preceding element.
+
+? - Matches zero or one occurrence of the preceding element.
+
+{n} - Matches exactly n occurrences of the preceding element.
+
+{n,} - Matches n or more occurrences of the preceding element.
+
+{n,m} - Matches between n and m occurrences of the preceding element.
+
+[] - Character class: matches any single character within the brackets.
+
+[^] - Negated character class: matches any single character not within the brackets.
+
+() - Grouping: captures a group of characters.
+
+| - Alternation: matches either the expression before or after the pipe symbol.
+
+^ - Matches the beginning of a line/string.
+
+$ - Matches the end of a line/string.
+
+\b - Matches a word boundary.
+
+\B - Matches a non-word boundary.
+
+(?i) - Case-insensitive matching.
+
+(?s) - Enables the dot . to match newline characters as well.
+
+(?m) - Enables multiline mode.
+
+(?x) - Enables extended mode, allowing whitespace and comments within the pattern
+
+
+
+
+
+
+
+
+
+
+..............................
+        System.out.println(!("dhanu8".matches("^(?=.{1,45}$)[a-zA-Z\\s]+$")));
+        
+        System.out.println((("200236100669".matches("/[0-9]{12}/"))));
+        
+        System.out.println(!(("22342438v".matches("^(?:19|20)?\\d{2}[0-9]{10}|[0-9]{9}[x|X|v|V]$"))));
+        
+        System.out.println(!"ddfgd|".matches("^[#.0-9a-zA-Z\\s,-]+$"));
+        
+        System.out.println("099-79100048".matches("^[0]?(\\d{2})[-]?(\\d{7})$"));
+        
+        System.out.println("0997910008".matches("^[0]?(\\d{9})$"));
+        
+        System.out.println(!"dhanushka@Gmail.com".matches("\\b[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}\\b"));
+
+	System.out.println(("dhghhgj".matches("^[a-zA-Z0-9._-]{3,18}$")));
+        
+        System.out.println(!("12679sS#".matches("^.*(?=.{8,18})(?=..*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).*$")));

@@ -1,0 +1,45 @@
+Project Details;
+
+	Meet client and get project
+	get Project requament
+	give project poposal
+	Analysis the problem
+	create Differant solution
+		make web site
+		Adimin only system
+		Adimin and user system ( C# or Java )
+	Design solution
+	drow our system wireFreame
+	meet client and get project requament
+	Begin project
+	create github group project and add members
+	Design wireFreame using neatbeans swing
+	
+	begin cording part 24/03/25
+	// <<Java>> //
+
+	Name = Dhanushka Mahesh ( 0055 )
+	
+
+	// <<interface>> //
+	paint uesd drow sample wireframe
+	firsty design login form after begin design accountCreate form
+	now strat over cording part those two form
+	// <<not finish>> //       
+	
+	now have picture add but not manual
+		import packName.className; new class want to import our project
+	
+	<<april 01>>    
+
+
+	project interfase not like custermer
+
+	so create new interfase
+	create product and user databases
+	create product OOP class console
+	admin form Over 80%
+	login form 100%
+	cahshir Form 40% but Create founctions
+   	
+	<<may 05 >>

@@ -1,0 +1,261 @@
+Create database Orio_POS_DB;
+Create table product(
+    ProductId int primary key auto_increment,
+    PName varchar(50) not null unique,
+    liveProduct bool default 1,
+    PPrice double not null,
+    Pimgage blob 
+);
+
+alter table product
+modify column ProductId int
+auto_increment,
+auto_increment=980;
+
+select count(ProductId) as count from product where liveProduct=1
+insert into product(PName,PPrice) values ("fut&Nut",150.50);
+
+
+
+
+create table Stock(
+StockID int primary key auto_increment,
+ProductID int not null unique,
+QuantityStock decimal(10 ,2),
+foreign key(ProductID) references product(ProductId)
+);
+
+insert into stock(productID,QuantityStock)
+values(984,8500.00);
+
+update stock set QuantityStock = QuantityStock-500 where ProductID="980";
+update stock set QuantityStock = QuantityStock+500 where ProductID=(select ProductId from product where PName="vanila");
+
+
+
+create table IceConeDetails(
+
+ConeType varchar(30) primary key,
+IcePriseKG decimal(5,2) not null,
+ConeWeight Decimal(5,2) not null
+
+);
+
+alter table product
+add TypeName varchar(30) default "Cone";
+
+alter table product
+add constraint TypeName_fk
+foreign key(TypeName) references IceConeDetails(ConeType); 
+
+insert into iceconedetails values("Cone",5.00,80.50);
+select * from iceconedetails
+
+alter table iceconedetails rename column IcePriseKG to Price
+
+
+Create table userTable(
+    userId int primary key auto_increment,
+    uName varchar(50) not null ,
+    liveAccount bool default 1,
+    nic varchar(15) unique,
+    accType varchar(20) ,
+    address  varchar(80) ,
+    gender varchar(10) , 
+    tp varchar(10) unique,
+    email varchar(50) unique,
+    accUserName varchar(20) unique,
+    accPassword varchar(30) unique
+);
+alter table userTable
+modify column userId int
+auto_increment,
+auto_increment=2010;
+
+insert into userTable(uName,nic,accType,address,gender,tp,accUserName,accPassword)
+		values('dhanushka','200236100669','admin','54/1 , marawanagoda .','male','0766640384','orio','admin');
+insert into userTable(uName,nic,accType,address,gender,tp,accUserName,accPassword)
+		values('Ayesha','200236100668','cashier','madawala road.','female','0817910048','orioo','cashier');
+insert into userTable(uName,nic,accType,address,gender,tp)
+		values('Sadamali','200236100667','server','colombo 9 .','male','0706540384');
+insert into userTable(uName,nic,accType,address,gender,tp,accUserName,accPassword,liveAccount)
+		values('Dinuka','200236100666','cashier','Kandy .','male','0817910049','oriooo','cashierrr',0);
+
+
+
+
+
+
+
+
+create table salesOrder(
+
+	OrderId varchar(10) primary key,
+    OrderDate date not null,
+    totalAmount decimal(8,2)
+    
+
+
+);
+create table order_seq(
+
+seqNumId int not null
+
+);
+insert into order_seq(seqNumId) values (0);
+
+
+
+
+
+
+
+
+create new again tables
+
+CREATE TABLE salesOrder (
+    OrderId VARCHAR(10) PRIMARY KEY,
+    OrderDate DATE NOT NULL,
+    totalAmount DECIMAL(8,2)
+);
+
+CREATE TABLE product (
+    ProductId VARCHAR(10) PRIMARY KEY,
+    PName VARCHAR(50) NOT NULL UNIQUE,
+    liveProduct BOOL DEFAULT 1,
+    PPrice DOUBLE NOT NULL,
+    Pimgage BLOB
+);
+
+DELIMITER $$
+
+CREATE TRIGGER before_insert_salesOrder
+BEFORE INSERT ON salesOrder
+FOR EACH ROW
+BEGIN
+    DECLARE max_id INT;
+    DECLARE new_id VARCHAR(10);
+
+    SELECT COALESCE(MAX(CAST(SUBSTRING(OrderId, 2) AS UNSIGNED)), 0) + 1 INTO max_id FROM salesOrder;
+
+    SET new_id = CONCAT('D', LPAD(max_id, 5, '0'));
+
+    SET NEW.OrderId = new_id;
+END$$
+
+CREATE TRIGGER before_insert_product
+BEFORE INSERT ON product
+FOR EACH ROW
+BEGIN
+    DECLARE max_id INT;
+    DECLARE new_id VARCHAR(10);
+
+    SELECT COALESCE(MAX(CAST(SUBSTRING(ProductId, 2) AS UNSIGNED)), 0) + 1 INTO max_id FROM product;
+
+    SET new_id = CONCAT('P', LPAD(max_id, 5, '0'));
+
+    SET NEW.ProductId = new_id;
+END$$
+
+DELIMITER ;
+
+
+
+set sql_safe_updates=0;
+
+UPDATE salesOrder SO
+JOIN (
+    SELECT order_Id, SUM(sub_Total) AS totalAmount
+    FROM orderDetails
+    GROUP BY order_Id
+) OD ON SO.OrderId = OD.order_Id
+SET SO.totalAmount = OD.totalAmount;
+
+set sql_safe_updates=1;
+
+
+/*
+
+update salesOrder
+ set totalAmount=null
+ where orderId="D00002";
+
+delete from stock
+where StockID=8;
+
+drop table salesorder;
+
+alter table stock
+drop foreign key stock_ibfk_1;
+
+*/
+
+insert into salesOrder(OrderDate,totalAmount) values(current_date(),300.00);
+
+alter table stock modify column productID varchar(10)
+
+alter table stock
+add constraint fk_ProductID
+foreign key(ProductID) references product(productId) 
+
+alter table stock
+modify column stockID int
+auto_increment,
+auto_increment=490;
+
+insert into stock(productID,QuantityStock) values("P00002",5500.00);
+insert into product(pname,pprice) values("vanila",90.00);
+
+
+create table orderDetails(
+
+order_Id varchar(10),
+product_Id varchar(10),
+quantity int not null,
+sub_Total decimal(8,2) not null,
+primary key(order_Id,product_Id),
+foreign key(order_Id) references salesorder(OrderId),
+foreign key(product_Id) references Product(ProductId)
+
+);
+
+insert into orderdetails(order_Id,product_Id,quantity,sub_Total) values ("D00002","P00001",2,300.00);
+
+
+
+select * from product;
+select * from stock;
+select * from salesOrder;
+select * from orderDetails;
+select * from iceconedetails;
+select * from usertable;
+
+>>>>>>>>>
+
+
+
+insert into stock(productId,QuantityStock) values("P00001",4000.80);
+insert into stock(productId,QuantityStock) values("P00003",5000.00);
+insert into stock(productId,QuantityStock) values("P00005",7000.50);
+
+delete from product where ProductId=P00001;
+delete from orderdetails
+
+SET SQL_SAFE_UPDATES = 0;
+DELETE FROM orderdetails;
+SET SQL_SAFE_UPDATES = 1;
+SET SQL_SAFE_UPDATES = 0;
+DELETE FROM salesorder;
+SET SQL_SAFE_UPDATES = 1;
+SET SQL_SAFE_UPDATES = 0;
+DELETE FROM product;
+SET SQL_SAFE_UPDATES = 1;
+SET SQL_SAFE_UPDATES = 0;
+DELETE FROM iceconedetails;
+SET SQL_SAFE_UPDATES = 1;
+SET SQL_SAFE_UPDATES = 0;
+DELETE FROM stock;
+SET SQL_SAFE_UPDATES = 1;
+SET SQL_SAFE_UPDATES = 0;
+DELETE FROM usertable;
+SET SQL_SAFE_UPDATES = 1;
